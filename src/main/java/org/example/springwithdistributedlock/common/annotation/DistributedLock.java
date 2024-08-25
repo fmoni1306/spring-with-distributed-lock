@@ -1,4 +1,4 @@
-package org.example.springwithdistribturedlock.common.annotation;
+package org.example.springwithdistributedlock.common.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

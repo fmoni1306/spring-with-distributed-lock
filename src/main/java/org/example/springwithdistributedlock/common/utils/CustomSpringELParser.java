@@ -1,4 +1,4 @@
-package org.example.springwithdistribturedlock.common.utils;
+package org.example.springwithdistributedlock.common.utils;
 
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;

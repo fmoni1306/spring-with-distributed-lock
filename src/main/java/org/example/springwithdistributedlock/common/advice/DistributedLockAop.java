@@ -1,12 +1,13 @@
-package org.example.springwithdistribturedlock.common.advice;
+package org.example.springwithdistributedlock.common.advice;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.example.springwithdistribturedlock.common.annotation.DistributedLock;
-import org.example.springwithdistribturedlock.common.utils.CustomSpringELParser;
+import org.example.springwithdistributedlock.common.annotation.DistributedLock;
+import org.example.springwithdistributedlock.common.utils.CustomSpringELParser;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ public class DistributedLockAop {
     private final RedissonClient redissonClient;
     private final AopForTransaction aopForTransaction;
 
-//    @Around("@annotation(com.kurly.rms.aop.DistributedLock)")
+    @Around("@annotation(org.example.springwithdistributedlock.common.annotation.DistributedLock)")
     public Object lock(final ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();

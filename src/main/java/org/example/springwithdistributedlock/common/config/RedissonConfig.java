@@ -1,4 +1,4 @@
-package org.example.springwithdistribturedlock.common.config;
+package org.example.springwithdistributedlock.common.config;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

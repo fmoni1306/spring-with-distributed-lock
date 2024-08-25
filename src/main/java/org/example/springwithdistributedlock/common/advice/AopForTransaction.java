@@ -1,4 +1,4 @@
-package org.example.springwithdistribturedlock.common.advice;
+package org.example.springwithdistributedlock.common.advice;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
