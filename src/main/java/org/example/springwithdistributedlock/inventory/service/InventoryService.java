@@ -41,4 +41,29 @@ public class InventoryService {
         inventory.decreaseQuantity(outbound.getQuantity());
         return newInventory;
     }
+
+    @DistributedLock(key = "#outbound.getInventoryEntity.getDecreaseQuantityKey")
+    public InventoryEntity decreaseAndMovingInventoryWhenManyInventory(OutboundEntity outbound) {
+        InventoryEntity newInventory = InventoryEntity.builder()
+                .location("O1")
+                .goodsId("G1")
+                .goodsName("사과")
+                .locationType("OUT")
+                .quantity(outbound.getQuantity())
+                .build();
+
+        Optional<InventoryEntity> existInventory = inventoryRepository.findByLocationAndGoodsId(newInventory.getLocation(), newInventory.getGoodsId());
+
+        if (existInventory.isPresent()) {
+            newInventory = existInventory.get();
+            newInventory.increaseQuantity(outbound.getQuantity());
+        }
+
+        inventoryRepository.save(newInventory);
+
+        InventoryEntity inventory = outbound.getInventoryEntity();
+
+        inventory.decreaseQuantity(outbound.getQuantity());
+        return newInventory;
+    }
 }
