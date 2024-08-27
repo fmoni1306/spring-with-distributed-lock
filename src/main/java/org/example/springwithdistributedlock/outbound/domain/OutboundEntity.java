@@ -2,7 +2,10 @@ package org.example.springwithdistributedlock.outbound.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.example.springwithdistributedlock.inventory.domain.InventoryEntity;
+import org.example.springwithdistributedlock.inventory.domain.OutboundInventoryMappingEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -16,15 +19,21 @@ public class OutboundEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "inventory_id")
-    private InventoryEntity inventoryEntity;
+    @OneToMany(mappedBy = "outboundEntity", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<OutboundInventoryMappingEntity> outboundInventoryMappingEntity = new ArrayList<>();
 
     private String outboundStatus;
 
     private Long quantity;
 
+    private Long remainQuantity;
+
     public void updateStatusReady() {
         this.outboundStatus = "READY";
+    }
+
+    public void decreaseRemainQuantity(Long quantity) {
+        this.remainQuantity -= quantity;
     }
 }

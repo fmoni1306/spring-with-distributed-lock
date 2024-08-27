@@ -3,6 +3,9 @@ package org.example.springwithdistributedlock.inventory.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Entity
 @Table(name = "inventory")
@@ -24,6 +27,10 @@ public class InventoryEntity {
     private String goodsName;
 
     private Long quantity;
+
+    @OneToMany(mappedBy = "inventoryEntity", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<OutboundInventoryMappingEntity> outboundInventoryMappingEntity = new ArrayList<>();
 
     public void decreaseQuantity(Long quantity) {
         this.quantity -= quantity;
